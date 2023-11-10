@@ -35,5 +35,6 @@ public class mainCitas {
 		} catch (IOException e){
 			System.out.println("Error al leer o escribir el archivo.");
 		}
+		
     }
 }
