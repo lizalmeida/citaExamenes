@@ -2,6 +2,9 @@ package modelo;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import servicios.Excepciones;
+
 import java.util.Date;
 import java.util.Calendar;
 import java.text.ParseException;
@@ -16,16 +19,15 @@ public class Calendario {
         return citas;
     }
     
-    public void agregarCita(Cita cita) {
+    public void agregarCita(Cita cita) throws Excepciones{
         if (validarHorario(cita) && 
             validarCitaSimultanea(cita) &&
             validarFechaMayorActual(cita) &&
             validarFinSemana(cita) &&
             validarFeriado(cita)) {
                 citas.add(cita);
-                System.out.println("Cita agregada con éxito.");
         } else {
-                System.out.println("Error: Cita no pasa las validaciones.");
+                throw new Excepciones ("No se pudo agregar la cita");
         }
     }
 

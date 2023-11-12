@@ -4,9 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import modelo.Apoderado;
@@ -68,7 +66,7 @@ public class Archivo {
             for (String dato : datos) {
                 if (!dato.isEmpty() ) {
                     if (!dato.equals("NUEVA CITA")) {
-                         if (dato.equals("2023-10-23") || dato.equals("2023-10-24")) { // PENDIENTE: Quitar fechas quemadas
+                         if (!dato.substring(2,3).equals(":")){
                         fechaCita = dato;
                         } else {
                         datosParticionados = dato.split("\\|");
@@ -114,7 +112,7 @@ public class Archivo {
         return citas;
     }
 
-    public Cita LeerCita(ArrayList<String> datos) throws Exception {
+    public Cita LeerCitaNueva(ArrayList<String> datos) throws Exception {
         Cita cita = new Cita();
         try {
             Calendario calendario = new Calendario();
@@ -169,81 +167,5 @@ public class Archivo {
             throw new Exception("Ha  ocurrido un error." + e);
         }
         return cita;
-    }
-
-    public class EscribirFecha implements IArchivos {
-        public void EscribirArchivo(Cita cita, String rutaArchivo) {
-            File file = new File(rutaArchivo);
-            FileWriter fileWriter;
-            PrintWriter printWriter;
-
-            if (file.exists()) {
-                try {
-                    fileWriter = new FileWriter(file, true);
-                    printWriter = new PrintWriter(fileWriter);
-                    printWriter.println(cita.getFecha());
-                    if (printWriter != null) {
-                        printWriter.close();
-                    }
-                    if (fileWriter != null) {
-                        fileWriter.close();
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            } else {
-                try {
-                    fileWriter = new FileWriter(file);
-                    printWriter = new PrintWriter(fileWriter);
-                    printWriter.println(cita.getFecha());
-                    if (printWriter != null) {
-                        printWriter.close();
-                    }
-                    if (fileWriter != null) {
-                        fileWriter.close();
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
-
-    public class EscribirCita implements IArchivos {
-        public void EscribirArchivo(Cita cita, String rutaArchivo) {
-            File file = new File(rutaArchivo);
-            FileWriter fileWriter;
-            PrintWriter printWriter;
-
-            if (file.exists()) {
-                try {
-                    fileWriter = new FileWriter(file, true);
-                    printWriter = new PrintWriter(fileWriter);
-                    printWriter.println(cita.getHora() + "|" + cita.toString());
-                    if (printWriter != null) {
-                        printWriter.close();
-                    }
-                    if (fileWriter != null) {
-                        fileWriter.close();
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            } else {
-                try {
-                    fileWriter = new FileWriter(file);
-                    printWriter = new PrintWriter(fileWriter);
-                    printWriter.println(cita.getHora() + "|" + cita.toString());
-                    if (printWriter != null) {
-                        printWriter.close();
-                    }
-                    if (fileWriter != null) {
-                        fileWriter.close();
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
     }
 }
