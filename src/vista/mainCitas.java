@@ -2,6 +2,7 @@ package vista;
 import java.util.ArrayList;
 import modelo.Cita;
 import servicios.Archivo;
+import servicios.CargaCitas;
 import servicios.Excepciones;
 //import java.io.IOException;
 
@@ -15,8 +16,8 @@ public class mainCitas {
 
 		try {
 			ArrayList<String> lecturaArchivo = new Archivo().LeerArchivo(rutaLectura);
-			citas = new Archivo().LeerCitas(lecturaArchivo);
-			citanueva = new Archivo().LeerCitaNueva(lecturaArchivo);
+			citas = new CargaCitas().LeerCitas(lecturaArchivo);
+			citanueva = new CargaCitas().LeerCitaNueva(lecturaArchivo);
 
 			for(Cita cita:citas){
 				if(!cita.getFecha().equals(fechaCitaAnterior)){

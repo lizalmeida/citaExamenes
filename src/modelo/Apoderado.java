@@ -11,6 +11,11 @@ public class Apoderado extends Persona{
     }
 
     @Override
+    public boolean esAdulto() {
+        return true;
+    }
+
+    @Override
     public String toString() {
         return "APO" + "|" + getNombre() + "|" + getTipoIdentificacion() + "|" + getIdentificacion() + "|" + getFechaNacimiento() + "|";
     }

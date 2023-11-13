@@ -1,5 +1,9 @@
 package modelo;
 
+import java.util.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 public class Persona {
     private String Identificacion;
     private String TipoIdentificacion; //(C)edula , (P) Pasaporte
@@ -75,6 +79,19 @@ public class Persona {
 
     public void setTipoPaciente(String tipoPaciente) {
         TipoPaciente = tipoPaciente;
+    }
+
+    public boolean esAdulto() throws ParseException{
+        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+        Date fechaNacimiento = formato.parse(this.FechaNacimiento);
+
+        Date fechaActual = new Date(System.currentTimeMillis());
+
+        int dias = (int) ((fechaActual.getTime() - fechaNacimiento.getTime()));
+        if (365*dias> 18) {
+            return true;
+        }
+        return false;
     }
 
     @Override
